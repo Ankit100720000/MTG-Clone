@@ -500,7 +500,7 @@ const ParallaxBanners = () => {
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "center center",
+          start: "45% center",
           end: () => `+=${trackWidth * 0.5}`,
           scrub: 0.5,
           pin: true,
@@ -512,11 +512,10 @@ const ParallaxBanners = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="bg-slate-900 border-y border-slate-800 overflow-hidden select-none py-16 h-svh flex flex-col justify-center relative">
+    <section ref={containerRef} className="bg-slate-900 border-y border-slate-800 overflow-hidden select-none py-0 h-svh flex flex-col justify-center relative">
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-950 pointer-events-none z-0" />
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 w-full mb-10 relative z-10">
         <h2 className="font-display text-3xl md:text-5xl font-black text-white">Upcoming Features <span className="text-red-500">& </span> Promos</h2>
-        <p className="text-white/60 mt-3 text-lg">Scroll down to naturally explore our latest updates.</p>
       </div>
       <div ref={trackRef} className="flex gap-8 px-4 sm:px-6 w-fit h-[50vh] min-h-[300px] items-center relative z-10 transition-transform">
         {PROMO_BANNERS.map((banner, i) => (
