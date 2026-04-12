@@ -1126,7 +1126,7 @@ export default function App() {
                 </div>
                 {/* Badge on main book */}
                 <div className="absolute -top-3 -right- bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-                  â­ Bestseller
+                  Bestseller
                 </div>
               </motion.div>
 
