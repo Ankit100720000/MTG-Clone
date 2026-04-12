@@ -332,7 +332,7 @@ const BookCard = ({ book, onAdd }: { book: typeof ALL_BOOKS[number]; onAdd: (b: 
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={e => { e.stopPropagation(); onAdd(book); }}
-            className="w-full bg-white text-indigo-600 font-bold text-[11px] py-2 rounded-xl flex items-center justify-center gap-1.5 hover:bg-red-600 hover:text-white transition-colors"
+            className="w-full bg-white text-red-600 font-bold text-[11px] py-2 rounded-xl flex items-center justify-center gap-1.5 hover:bg-red-600 hover:text-white transition-colors"
           >
             <ShoppingCart size={12} /> Add to Cart
           </motion.button>
@@ -414,7 +414,7 @@ const ProductSlider = ({ items, onAdd }: { items: typeof ALL_BOOKS; onAdd: (b: t
             onClick={b.fn}
             disabled={b.disable}
             className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-all
-              ${b.disable ? 'border-slate-200 text-slate-300 cursor-not-allowed' : 'border-slate-200 text-slate-500 hover:border-indigo-500 hover:text-indigo-600 hover:bg-indigo-50'}`}
+              ${b.disable ? 'border-slate-200 text-slate-300 cursor-not-allowed' : 'border-slate-200 text-slate-500 hover:border-indigo-500 hover:text-red-600 hover:bg-indigo-50'}`}
           >
             <b.icon size={16} />
           </button>
@@ -518,7 +518,7 @@ const TestimonialSlider = ({ items }: { items: typeof TESTIMONIALS }) => {
       <div className="absolute -top-[70px] right-0 flex gap-2">
         {[{ fn: prev, disable: idx === 0, icon: ChevronLeft }, { fn: next, disable: idx >= max, icon: ChevronRight }].map((b, i) => (
           <button key={i} onClick={b.fn} disabled={b.disable}
-            className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-all ${b.disable ? 'border-slate-200 text-slate-300 cursor-not-allowed' : 'border-slate-200 text-slate-500 hover:border-indigo-500 hover:text-indigo-600 hover:bg-indigo-50'}`}
+            className={`w-9 h-9 rounded-xl border flex items-center justify-center transition-all ${b.disable ? 'border-slate-200 text-slate-300 cursor-not-allowed' : 'border-slate-200 text-slate-500 hover:border-indigo-500 hover:text-red-600 hover:bg-indigo-50'}`}
           >
             <b.icon size={16} />
           </button>
@@ -542,7 +542,7 @@ const TestimonialSlider = ({ items }: { items: typeof TESTIMONIALS }) => {
                   <img src={test.image} alt={test.name} className="w-11 h-11 rounded-full bg-slate-200 border-2 border-white shadow-sm" draggable={false} />
                   <div>
                     <div className="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">{test.name}</div>
-                    <div className="text-[10px] text-indigo-600 font-bold uppercase tracking-wide mt-1">{test.role}</div>
+                    <div className="text-[10px] text-red-600 font-bold uppercase tracking-wide mt-1">{test.role}</div>
                   </div>
                 </div>
               </div>
@@ -585,7 +585,7 @@ const ParallaxBanners = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-zinc-100 via-zinc-50 to-white pointer-events-none z-0" />
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-24 mb-12 sticky top-[130px] z-30 pointer-events-none">
         <h2 className="font-display text-4xl md:text-5xl lg:text-4xl font-black text-slate-900 text-center drop-shadow-md">
-          Upcoming Features <span className="text-indigo-600">& </span> Promos
+          Upcoming Features <span className="text-red-600">& </span> Promos
         </h2>
       </div>
       
@@ -661,7 +661,7 @@ const CartDrawer = ({ open, onClose, items, setItems }: { open: boolean; onClose
                         <div className="flex items-center justify-between mt-2">
                           <p className="font-bold text-slate-800">{formatPrice(it.price)}</p>
                           <div className="flex items-center gap-3 bg-slate-100 rounded-lg px-2 py-1">
-                            <button onClick={() => setItems((prev:any) => prev.map((p:any) => p.id === it.id ? { ...p, qty: Math.max(1, p.qty - 1) } : p))} className="text-slate-500 hover:text-indigo-600">-</button>
+                            <button onClick={() => setItems((prev:any) => prev.map((p:any) => p.id === it.id ? { ...p, qty: Math.max(1, p.qty - 1) } : p))} className="text-slate-500 hover:text-red-600">-</button>
                             <span className="text-xs font-bold w-3 text-center text-slate-700">{it.qty}</span>
                             <button onClick={() => setItems((prev:any) => prev.map((p:any) => p.id === it.id ? { ...p, qty: p.qty + 1 } : p))} className="text-slate-500 hover:text-green-600">+</button>
                           </div>
@@ -707,7 +707,7 @@ const AuthModal = ({ open, onClose, view, setView }: { open: boolean; onClose: (
             <button onClick={onClose} className="absolute top-5 right-5 text-slate-400 hover:bg-slate-100 p-1.5 rounded-full"><X size={18}/></button>
 
             <div className="p-8">
-              <div className="w-12 h-12 bg-red-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6 border border-indigo-100">
+              <div className="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6 border border-indigo-100">
                 <User size={24} />
               </div>
               
@@ -724,7 +724,7 @@ const AuthModal = ({ open, onClose, view, setView }: { open: boolean; onClose: (
                   <button onClick={() => setView('otp')} className="btn-primary w-full py-2.5">Send OTP</button>
                   <div className="text-center mt-2">
                      <span className="text-xs text-slate-500">New here? </span>
-                     <button onClick={() => setView('signup')} className="text-xs font-bold text-indigo-600 hover:underline">Sign up</button>
+                     <button onClick={() => setView('signup')} className="text-xs font-bold text-red-600 hover:underline">Sign up</button>
                   </div>
                 </div>
               )}
@@ -736,7 +736,7 @@ const AuthModal = ({ open, onClose, view, setView }: { open: boolean; onClose: (
                   <button onClick={() => setView('otp')} className="btn-primary w-full py-2.5 mt-2">Get OTP</button>
                   <div className="text-center mt-3">
                      <span className="text-xs text-slate-500">Already a member? </span>
-                     <button onClick={() => setView('login')} className="text-xs font-bold text-indigo-600 hover:underline">Sign in</button>
+                     <button onClick={() => setView('login')} className="text-xs font-bold text-red-600 hover:underline">Sign in</button>
                   </div>
                 </div>
               )}
@@ -747,7 +747,7 @@ const AuthModal = ({ open, onClose, view, setView }: { open: boolean; onClose: (
                     {[1,2,3,4].map(i => <input key={i} type="text" maxLength={1} className="w-12 h-14 text-center text-xl font-bold text-slate-900 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 outline-none transition-all bg-slate-50 focus:bg-white" />)}
                   </div>
                   <button onClick={onClose} className="btn-primary w-full py-2.5 mt-2">Verify & Login</button>
-                  <button onClick={() => setView('login')} className="text-xs text-slate-500 hover:text-indigo-600 text-center">Resend OTP</button>
+                  <button onClick={() => setView('login')} className="text-xs text-slate-500 hover:text-red-600 text-center">Resend OTP</button>
                 </div>
               )}
 
@@ -1011,11 +1011,11 @@ export default function App() {
           <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4 flex items-center gap-1 py-1.5 overflow-x-auto scrollbar-hide">
             {NAV_LINKS.map(link => (
               <a key={link} href="#"
-                className="text-sm text-slate-700 font-bold px-3 py-2 rounded-lg whitespace-nowrap hover:text-indigo-600 hover:bg-white/60 transition-all">
+                className="text-sm text-slate-700 font-bold px-3 py-2 rounded-lg whitespace-nowrap hover:text-red-600 hover:bg-white/60 transition-all">
                 {link}
               </a>
             ))}
-            <a href="#" className="ml-auto flex items-center gap-1.5 text-sm font-bold text-indigo-600 px-4 py-2 rounded-xl bg-indigo-100/50 hover:bg-indigo-200/60 transition-colors whitespace-nowrap">
+            <a href="#" className="ml-auto flex items-center gap-1.5 text-sm font-bold text-red-600 px-4 py-2 rounded-xl bg-indigo-100/50 hover:bg-indigo-200/60 transition-colors whitespace-nowrap">
               <Flame size={14} /> Deals & Offers
             </a>
           </div>
@@ -1062,7 +1062,7 @@ export default function App() {
                 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-on-surface leading-[1.08] tracking-tight mb-5"
               >
                 India's Most{' '}
-                <span className="text-indigo-600">Trusted</span>{' '}
+                <span className="text-red-600">Trusted</span>{' '}
                 <br />Educational{' '}
                 <TypeAnimation
                   sequence={['Publisher.', 2500, 'Store.', 2500, 'Partner.', 2500]}
@@ -1206,7 +1206,7 @@ export default function App() {
               title="Explore by Category"
               sub="Find the perfect study material for every exam and class."
               cta={
-                <a href="#" className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700">
+                <a href="#" className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-red-600 hover:text-red-700">
                   All Products <ArrowRight size={15} />
                 </a>
               }
@@ -1260,11 +1260,11 @@ export default function App() {
                   <BookOpen size={120} strokeWidth={1} className="text-indigo-500" />
                 </div>
                 <div className="relative z-10 max-w-sm">
-                  <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 flex items-center gap-1.5 mb-3">
+                  <span className="text-xs font-bold uppercase tracking-widest text-red-600 flex items-center gap-1.5 mb-3">
                     <Flame size={13} /> Limited Time Offer
                   </span>
                   <div className="font-display font-extrabold text-slate-800 group-hover:text-indigo-700 transition-colors mb-3">
-                    <div className="text-3xl md:text-4xl mb-1">Flat <span className="text-indigo-600">50% OFF</span></div>
+                    <div className="text-3xl md:text-4xl mb-1">Flat <span className="text-red-600">50% OFF</span></div>
                     <div className="text-xl md:text-2xl text-slate-700 font-bold">on All Workbooks</div>
                   </div>
                   <p className="text-slate-500 mb-6 text-sm leading-relaxed">
@@ -1342,7 +1342,7 @@ export default function App() {
               title="Bestselling Books"
               sub="Most-loved study materials by students across India."
               cta={
-                <a href="#" className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700">
+                <a href="#" className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-red-600 hover:text-indigo-700">
                   View All <ArrowRight size={15} />
                 </a>
               }
@@ -1359,7 +1359,7 @@ export default function App() {
               title="MTG Magazines"
               sub="Stay ahead with exam updates, practice problems, and expert tips every month."
               cta={
-                <button className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700">
+                <button className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-red-600 hover:text-indigo-700">
                   Subscribe Now <ArrowRight size={15} />
                 </button>
               }
@@ -1454,7 +1454,7 @@ export default function App() {
               <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-divider rounded-2xl p-6 md:p-8">
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 bg-red-50 rounded-2xl border border-indigo-100 flex items-center justify-center flex-shrink-0">
-                    <TrendingUp size={28} className="text-indigo-600" />
+                    <TrendingUp size={28} className="text-red-600" />
                   </div>
                   <div>
                     <h4 className="font-display font-bold text-xl text-on-surface">Olympiad Online Classes</h4>
