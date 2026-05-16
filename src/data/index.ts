@@ -27,12 +27,46 @@ export const PROMO_BANNERS = [
   { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/online_class_banner.webp', link: 'https://mtg.in/online-classes/live-classes/' },
   { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/04/olympiad_50_per_off_workbook.webp', link: 'https://mtg.in/combo-packs-on-discount/olympiad-books/' },
   { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/04/olympiad_50_per_off.webp', link: 'https://mtg.in/olympiad-books-ntse/' },
-  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/free-masterclass.webp', link: 'https://us06web.zoom.us/meeting/register/OoGm0cmtTHyYg7rO4YQFZQ' },
+  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/free-masterclass.webp', link: '#' },
   { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/foundation_course_2026.webp', link: 'https://mtg.in/school-books-boards/foundation-courses/' },
   { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/Regional-entrance_1.webp', link: 'https://mtg.in/engineering-entrance-exams/regional-engineering-entrance/' },
-  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/100-percent-banner-scaled.webp', link: 'https://mtg.in/products-search/?product-cats=all&search=100+Percent' },
+  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/100-percent-banner-scaled.webp', link: '#' },
   { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2025/08/neet_banner_new-2.webp', link: 'https://mtg.in/medical-entrance-exams/neet-exam-books/neet-previous-years-paper/' },
-  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2025/08/MTG-website-banner-KCET.webp', link: 'https://mtg.in/engineering-entrance-exams/regional-engineering-entrance/karnataka-cet-kcet/' },
+  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2025/08/MTG-website-banner-KCET.webp', link: '#' },
+];
+
+// Real category images from MTG website
+export const SHOP_BY_CATEGORY = [
+  { label: 'NEET',              img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/neet.jpg',                link: 'https://mtg.in/medical-entrance-exams/' },
+  { label: 'JEE Main & Adv',    img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/jee-1.jpg',               link: 'https://mtg.in/engineering-entrance-exams/jee-exam-books-main-and-advanced/' },
+  { label: 'Olympiad',          img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/olympiad.jpg',             link: 'https://mtg.in/olympiad-books-ntse/' },
+  { label: 'CBSE Boards',       img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/cbse.jpg',                 link: 'https://mtg.in/school-books-boards/cbse-books/' },
+  { label: 'Foundation',        img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/foundation.jpg',           link: 'https://mtg.in/school-books-boards/foundation-courses/' },
+  { label: 'NCERT Solutions',   img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/ncert.jpg',                link: 'https://mtg.in/school-books-boards/ncert-solutions/' },
+  { label: 'School Books',      img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/school_books.jpg',         link: 'https://mtg.in/school-books-boards/school-textbooks/' },
+  { label: 'Regional Entrance', img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/regional_eng.jpg',         link: 'https://mtg.in/engineering-entrance-exams/regional-engineering-entrance/' },
+  { label: 'Online Classes',    img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/online_class.jpg',         link: 'https://mtg.in/online-classes/' },
+  { label: 'Early Learning',    img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/04/early_learning.webp',      link: 'https://mtg.in/early-learning/' },
+  { label: 'Activities',        img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/activity_literature.jpg',  link: 'https://mtg.in/activities-and-literature/' },
+  { label: 'Govt Exams',        img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2024/08/gov_exam.jpg',             link: 'https://mtg.in/government-sector-exams/' },
+];
+
+// Real offer/deal banners from MTG
+export const OFFER_BANNERS = [
+  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/04/workbook-combo-offer-banner.webp',       label: 'Olympiad Combo',     link: 'https://mtg.in/combo-packs-on-discount/olympiad-books/' },
+  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/02/neet-offer-banner.jpg',                  label: 'NEET Books Offer',   link: 'https://mtg.in/medical-entrance-exams/' },
+  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2025/08/SOF-Olympiad-online-test-package.webp',  label: 'Online Test Pack',   link: '#' },
+  { img: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/foundation_course_offer_banner_2026.webp', label: 'Foundation Course', link: 'https://mtg.in/school-books-boards/foundation-courses/' },
+];
+
+// New Releases — real product data
+export const NEW_RELEASES = [
+  { id: 'nr1', title: '100% NCERT PCME Combo Class 12', price: 1572, oldPrice: 1965, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/9789375445098_cbse_100_percent_cl_12_pcme_2026-250x322.webp', link: 'https://mtg.in/combo-discount-coupon/class-12-mtg-100-percent-pcme-combo/', badge: 'Bestseller' },
+  { id: 'nr2', title: '100% NCERT PCBE Combo Class 12', price: 1516, oldPrice: 1895, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/9789375441007_cbse_100_percent_cl_12_pcbe_2026-250x322.webp', link: '#', badge: 'Bestseller' },
+  { id: 'nr3', title: '100% NCERT PCM Combo Class 12',  price: 1288, oldPrice: 1515, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/9789375443186_cbse_100_percent_cl_12_pcm_2026-250x322.webp',  link: '#', badge: 'Featured' },
+  { id: 'nr4', title: '100% NCERT PCB Combo Class 12',  price: 1228, oldPrice: 1445, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/9789375449430_cbse_100_percent_cl_12_pcb_2026-250x322.webp',  link: '#', badge: 'Featured' },
+  { id: 'nr5', title: '100% NCERT PC Combo Class 12',   price: 896,  oldPrice: 995,  image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/9789375442417_cbse_100_percent_cl_12_pcb_2026-250x322.webp',  link: '#', badge: '10% OFF' },
+  { id: 'nr6', title: '100% NCERT Physics Class 12',    price: 520,  oldPrice: 0,    image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/03/9789369574087_100_percent_phy_cl12-250x326.webp',            link: '#', badge: 'New' },
 ];
 
 export const ALL_BOOKS = [
@@ -51,10 +85,12 @@ export const ALL_BOOKS = [
 ];
 
 export const MAGAZINES = [
-  { id: 'm1', name: 'Physics For You Subscription',    desc: '1 Year Full Access', price: 50, image: BOOK_IMAGES.magazine_phy,  color: '#FEF2F2', accent: '#DC1E1E' },
-  { id: 'm2', name: 'Chemistry Today Subscription',    desc: '1 Year Full Access', price: 50, image: BOOK_IMAGES.magazine_chem, color: '#F0FDF4', accent: '#16A34A' },
-  { id: 'm3', name: 'Mathematics Today Subscription',  desc: '1 Year Full Access', price: 50, image: BOOK_IMAGES.magazine_math, color: '#EFF6FF', accent: '#2563EB' },
-  { id: 'm4', name: 'Biology Today Subscription',      desc: '1 Year Full Access', price: 50, image: BOOK_IMAGES.magazine_bio,  color: '#F5F3FF', accent: '#7C3AED' },
+  { id: 'm1', name: 'Physics For You',    desc: '₹749–₹3,239/yr', price: 749, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/05/2026050015735_phy_may_issue-250x335.webp',  color: '#FEF2F2', accent: '#DC1E1E' },
+  { id: 'm2', name: 'Chemistry Today',    desc: '₹749–₹3,239/yr', price: 749, image: BOOK_IMAGES.magazine_chem, color: '#F0FDF4', accent: '#16A34A' },
+  { id: 'm3', name: 'Mathematics Today',  desc: '₹749–₹3,239/yr', price: 749, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/05/2026050015737_math_may_issue-250x335.webp', color: '#EFF6FF', accent: '#2563EB' },
+  { id: 'm4', name: 'Biology Today',      desc: '₹749–₹3,239/yr', price: 749, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2026/05/2026050015738_bio_may_issue-250x335.webp',  color: '#F5F3FF', accent: '#7C3AED' },
+  { id: 'm5', name: 'PCMB Combo',         desc: '₹2,800–₹7,740/yr', price: 2800, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2021/05/2023_pcmb_combo-250x329.jpg', color: '#FFFBEB', accent: '#D97706' },
+  { id: 'm6', name: 'PCB Combo',          desc: '₹2,200–₹6,840/yr', price: 2200, image: 'https://mtgpublicwp.mtg.in/wp-content/uploads/2021/05/2023_pcb_combo-250x329.jpg',  color: '#FEF2F2', accent: '#E11D48' },
 ];
 
 export const CATEGORIES = [
@@ -65,7 +101,15 @@ export const CATEGORIES = [
   { label: 'CBSE',     icon: GraduationCap },
 ];
 
-export const NAV_LINKS = ['Classes', 'Olympiad', 'Medical / NEET', 'Engineering / JEE', 'Magazines', 'Online Classes', 'CBSE Boards', 'CUET'];
+export const FOOTER_SECTIONS = {
+  explore: ['NEET', 'JEE', 'Olympiad', 'CBSE', 'Magazines', 'Online Classes', 'Foundation Courses', 'NCERT Solutions'],
+  company: ['About Us', 'Contact Us', 'Careers', 'Press Releases', 'Blog'],
+  partner: ['Online Class Teacher', 'Authors & Editors', 'Influencers', 'Distributors'],
+  support: ['Help Center', 'FAQs', 'How to Buy', 'Shipping', 'Returns & Cancellation', 'Bulk Orders', 'MTG in Your City'],
+  policy: ['Privacy Policy', 'User Terms', 'Return Policy', 'CSR Policy', 'Disclaimer'],
+};
+
+export const NAV_LINKS = ['Classes', 'NEET', 'JEE', 'Olympiad', 'CBSE', 'Magazines', 'Online Classes'];
 
 export const TICKER_ITEMS = [
   { icon: Truck,       text: 'Free Delivery across India on orders above ₹499' },
