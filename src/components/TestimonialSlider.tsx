@@ -61,12 +61,12 @@ const TestimonialSlider = ({ items }: TestimonialSliderProps) => {
                 style={{ background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}
               >
                 {/* Subtle soft glowing border effect on top */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-red-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 <div className="flex gap-1 mb-5 bg-amber-50/80 w-max px-2.5 py-1.5 rounded-lg border border-amber-100 shadow-sm">
                   {[1,2,3,4,5].map(s => <Star key={s} size={13} className="fill-amber-400 text-amber-400 drop-shadow-sm" />)}
                 </div>
-                <p className="text-slate-600 font-medium text-[15px] italic leading-relaxed mb-8 flex-grow tracking-wide">"{test.text}"</p>
+                <p className="text-slate-600 font-medium text-[15px] italic leading-relaxed mb-8 grow tracking-wide">"{test.text}"</p>
                 <div className="flex items-center gap-4 bg-white p-3 rounded-2xl border border-slate-50 shadow-sm">
                   <img src={test.image} alt={test.name} className="w-12 h-12 rounded-full bg-slate-200 border-2 border-slate-100 drop-shadow-sm" draggable={false} />
                   <div>

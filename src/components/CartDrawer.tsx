@@ -24,7 +24,7 @@ const CartDrawer = ({ open, onClose, items, setItems }: CartDrawerProps) => {
   return (
     <AnimatePresence>
       {open && (
-        <div className="fixed inset-0 z-[200]">
+        <div className="fixed inset-0 z-200">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={onClose}
             className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"

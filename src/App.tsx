@@ -5,7 +5,8 @@ import {
   GraduationCap, Microscope, Calculator, Award, ArrowRight,
   Star, Flame, Headphones, Truck,
   TrendingUp, BookMarked, Phone, Mail,
-  Facebook, Twitter, Instagram, Youtube, Zap, Moon, Sun
+  Facebook, Twitter, Instagram, Youtube, Zap, Moon, Sun, Globe,
+  Smartphone, Play, Download, Clock, Calendar
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { TypeAnimation } from 'react-type-animation';
@@ -68,56 +69,7 @@ export default function App() {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
 
-  // GSAP refs
-  const headerRef   = useRef<HTMLElement>(null);
-  const heroRef     = useRef<HTMLDivElement>(null);
-  const heroBadge   = useRef<HTMLSpanElement>(null);
-  const heroH1      = useRef<HTMLHeadingElement>(null);
-  const heroP       = useRef<HTMLParagraphElement>(null);
-  const heroBtns    = useRef<HTMLDivElement>(null);
-  const heroProof   = useRef<HTMLDivElement>(null);
-  const heroImgWrap = useRef<HTMLDivElement>(null);
-  const trustRef    = useRef<HTMLDivElement>(null);
-  const statsRef    = useRef<HTMLDivElement>(null);
 
-  // Navbar slide-in on mount
-  useLayoutEffect(() => {
-    if (!headerRef.current) return;
-    gsap.from(headerRef.current, { y: -80, opacity: 0, duration: 0.7, ease: 'power3.out', clearProps: 'all' });
-  }, []);
-
-  // Hero GSAP timeline
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.from(heroBadge.current,   { y: 20, opacity: 0, duration: 0.5 })
-        .from(heroH1.current,      { y: 40, opacity: 0, duration: 0.65 }, '-=0.2')
-        .from(heroP.current,       { y: 24, opacity: 0, duration: 0.5  }, '-=0.35')
-        .from(heroBtns.current,    { y: 20, opacity: 0, duration: 0.45 }, '-=0.25')
-        .from(heroProof.current,   { y: 16, opacity: 0, duration: 0.4  }, '-=0.2')
-        .from(heroImgWrap.current, { x: 60, opacity: 0, duration: 0.75, ease: 'power4.out', clearProps: 'all' }, 0.15)
-        .add(() => gsap.set([heroBadge.current, heroH1.current, heroP.current, heroBtns.current, heroProof.current], { clearProps: 'all' }));
-    }, heroRef);
-    return () => ctx.revert();
-  }, []);
-
-  // Trust bar stagger
-  useEffect(() => {
-    if (!trustRef.current) return;
-    gsap.from(trustRef.current.querySelectorAll('.trust-card'), {
-      scrollTrigger: { trigger: trustRef.current, start: 'top 85%' },
-      y: 40, opacity: 0, duration: 0.55, stagger: 0.12, ease: 'power3.out', clearProps: 'all',
-    });
-  }, []);
-
-  // Stats stagger
-  useEffect(() => {
-    if (!statsRef.current) return;
-    gsap.from(statsRef.current.querySelectorAll('.stat-item'), {
-      scrollTrigger: { trigger: statsRef.current, start: 'top 80%' },
-      y: 50, opacity: 0, duration: 0.6, stagger: 0.15, ease: 'back.out(1.4)', clearProps: 'all',
-    });
-  }, []);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
@@ -160,132 +112,95 @@ export default function App() {
       <Ticker />
 
       {/* HEADER */}
-      <header ref={headerRef} className={`sticky top-0 z-50 transition-all duration-300
-        ${scrolled ? 'shadow-[0_10px_30px_rgba(0,0,0,0.05)] bg-white/70 backdrop-blur-2xl' : 'border-b border-divider bg-white/95 backdrop-blur-lg'}`}
+      <motion.header
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { y: -80, opacity: 0 },
+          visible: {
+            y: 0, opacity: 1,
+            transition: { staggerChildren: 0.1, duration: 0.5, ease: "easeOut" }
+          }
+        }}
+        className={`sticky top-0 z-50 transition-all duration-300 border-b ${scrolled ? 'shadow-[0_10px_30px_rgba(0,0,0,0.05)] bg-white/80 backdrop-blur-md border-transparent' : 'border-divider bg-white'}`}
       >
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4 py-3.5 flex items-center gap-4 md:gap-6">
-
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-6">
+          
           {/* Logo */}
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <button className="md:hidden p-1.5 rounded-lg hover:bg-surface-low text-on-surface-dim"
-              onClick={() => setMobileMenu(m => !m)}>
+          <motion.div variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }} className="flex items-center gap-3">
+            <button className="md:hidden p-1.5 rounded-lg hover:bg-slate-100 text-slate-500" onClick={() => setMobileMenu(m => !m)}>
               <Menu size={20} />
             </button>
-            <a href="#" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 bg-red-600 rounded-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                <img src="https://mtgpublicwp.mtg.in/wp-content/uploads/2021/02/mtg-logo1.png" alt="Logo" />
-              </div>
-              <div className="hidden sm:block leading-tight">
-                <div className="font-display font-bold text-lg text-on-surface tracking-tight leading-none">MTG Learning</div>
-                <div className="text-[9px] text-on-surface-dim font-medium tracking-wider uppercase">mtg.in</div>
-              </div>
+            <a href="#" className="flex items-center gap-2 group">
+              <span className="font-display font-black text-2xl text-[#CC0000] tracking-tight">MTG</span>
+              <span className="hidden sm:block text-[11px] font-bold text-slate-500 uppercase tracking-widest mt-1">Learning Media</span>
             </a>
-          </div>
+          </motion.div>
 
-          {/* Search */}
-          <div className="flex-1 max-w-2xl hidden md:flex items-center relative z-50">
-            <div className="relative w-full">
-              <Search size={16} className="absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-faint" />
-              <input
-                type="text"
-                value={searchVal}
-                onFocus={() => setSearchFocus(true)}
-                onBlur={() => setTimeout(() => setSearchFocus(false), 200)}
-                onChange={e => setSearchVal(e.target.value)}
-                placeholder="Search books, magazines, exams..."
-                className="input-field pl-26 pr-28"
-              />
-              <button className="absolute right-1.5 top-1/2 -translate-y-1/2 btn-primary !px-4 !py-2 !text-xs !rounded-lg !shadow-none">
-                Search
-              </button>
-
-              <AnimatePresence>
-                {searchFocus && searchVal.length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
-                    className="absolute top-12 left-0 right-0 bg-white border border-divider shadow-2xl rounded-2xl overflow-hidden z-[100]"
-                  >
-                    {filteredBooks.slice(0, 5).map(b => (
-                      <div key={b.id} className="flex flex-row items-center gap-3 p-3 hover:bg-slate-50 cursor-pointer border-b border-divider last:border-0"
-                           onClick={() => { setSearchVal(b.title); setSearchFocus(false); }}>
-                        <img src={b.image} className="w-10 h-14 object-cover rounded-md border border-slate-100" />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-slate-800 truncate">{b.title}</p>
-                          <p className="text-xs text-slate-500 font-medium">{b.category}</p>
-                        </div>
-                      </div>
-                    ))}
-                    {filteredBooks.length === 0 && <div className="p-4 text-center text-sm text-slate-500">No results found for "{searchVal}"</div>}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="flex items-center gap-1 ml-auto">
-            <button className="hidden md:flex flex-col items-center p-2 text-on-surface-dim hover:text-primary transition-colors rounded-xl hover:bg-surface-low text-xs gap-0.5">
-              <Phone size={18} />
-            </button>
-            <button className="relative p-2 text-on-surface-dim hover:text-primary transition-colors rounded-xl hover:bg-surface-low">
-              <Heart size={20} />
-              {wishCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
-                  {wishCount}
-                </span>
-              )}
-            </button>
-            <button
-              onClick={() => setDarkMode(d => !d)}
-              className="p-2 text-on-surface-dim hover:text-primary transition-colors rounded-xl hover:bg-surface-low"
-            >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            <button
-              onClick={() => { setAuthView('login'); setAuthOpen(true); }}
-              className="flex items-center gap-1.5 p-2 text-on-surface-dim hover:text-primary transition-colors rounded-xl hover:bg-surface-low"
-            >
-              <User size={20} />
-              <span className="hidden lg:flex flex-col items-start text-xs leading-tight">
-                <span className="font-semibold text-on-surface text-xs">Sign In</span>
-              </span>
-            </button>
-            <motion.button
-              onClick={() => setCartOpen(true)}
-              animate={cartAnim ? { scale: [1, 1.25, 1], rotate: [0, -8, 8, 0] } : {}}
-              className="relative flex items-center gap-2 bg-red-600 hover:bg-indigo-700 text-white pl-3 pr-4 py-2.5 rounded-xl transition-colors shadow-md ml-1"
-            >
-              <ShoppingCart size={18} />
-              <AnimatePresence mode="popLayout">
-                {cartCount > 0 && (
-                  <motion.span key={cartCount}
-                    initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-                    className="absolute -top-2 -right-2 w-5 h-5 bg-amber-400 text-slate-900 text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white"
-                  >
-                    {cartCount}
-                  </motion.span>
-                )}
-              </AnimatePresence>
-              <span className="font-semibold text-sm hidden lg:block">Cart</span>
-            </motion.button>
-          </div>
-        </div>
-
-        {/* Nav bar */}
-        <nav className="hidden md:block border-t border-divider bg-white/40 backdrop-blur-2xl flex-shrink-0 relative z-40">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4 flex items-center gap-1 py-1.5 overflow-x-auto scrollbar-hide">
-            {NAV_LINKS.map(link => (
-              <a key={link} href="#"
-                className="text-sm text-slate-700 font-bold px-3 py-2 rounded-lg whitespace-nowrap hover:text-red-600 hover:bg-white/60 transition-all">
-                {link}
-              </a>
+          {/* Center Nav Links */}
+          <motion.nav variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }} className="hidden lg:flex items-center gap-8">
+            {['Classes', 'NEET', 'JEE', 'Olympiad', 'CBSE', 'Magazines', 'Online Classes'].map(link => (
+              <div key={link} className="relative group cursor-pointer">
+                <a href="#" className="text-sm font-bold text-slate-800 hover:text-[#CC0000] transition-colors py-2 flex items-center gap-1 group-hover:text-[#CC0000]">
+                  {link}
+                </a>
+                <div className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CC0000] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                {/* Mega Menu Dropdown */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-56 bg-white shadow-xl rounded-xl border border-divider opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-2 group-hover:translate-y-0 p-4">
+                  <div className="text-[10px] font-bold text-slate-400 mb-3 uppercase tracking-wider">Explore {link}</div>
+                  <div className="flex flex-col gap-2.5">
+                    <a href="#" className="text-sm font-semibold text-slate-700 hover:text-[#CC0000] transition-colors">New Releases</a>
+                    <a href="#" className="text-sm font-semibold text-slate-700 hover:text-[#CC0000] transition-colors">Bestsellers</a>
+                    <a href="#" className="text-sm font-semibold text-slate-700 hover:text-[#CC0000] transition-colors">Previous Year Papers</a>
+                  </div>
+                </div>
+              </div>
             ))}
-            <a href="#" className="ml-auto flex items-center gap-1.5 text-sm font-bold text-red-600 px-4 py-2 rounded-xl bg-indigo-100/50 hover:bg-indigo-200/60 transition-colors whitespace-nowrap">
-              <Flame size={14} /> Deals &amp; Offers
-            </a>
-          </div>
-        </nav>
-      </header>
+          </motion.nav>
+
+          {/* Right Actions */}
+          <motion.div variants={{ hidden: { opacity: 0, y: -10 }, visible: { opacity: 1, y: 0 } }} className="flex items-center gap-3 xl:gap-5">
+            {/* Search Pill */}
+            <div className="hidden md:flex relative group">
+              <input 
+                type="text" 
+                value={searchVal}
+                onChange={e => setSearchVal(e.target.value)}
+                placeholder="Search..." 
+                className="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#CC0000]/20 w-48 transition-all focus:w-64" 
+              />
+              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#CC0000]" />
+            </div>
+
+            <div className="flex items-center gap-1 sm:gap-2">
+              <button className="relative p-2 text-slate-600 hover:text-[#CC0000] transition-colors rounded-full hover:bg-slate-100">
+                <Heart size={20} />
+                {wishCount > 0 && (
+                  <span className="absolute top-0 right-0 w-4 h-4 bg-[#CC0000] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+                    {wishCount}
+                  </span>
+                )}
+              </button>
+              <button onClick={() => { setAuthView('login'); setAuthOpen(true); }} className="relative p-2 text-slate-600 hover:text-[#CC0000] transition-colors rounded-full hover:bg-slate-100">
+                <User size={20} />
+              </button>
+              <motion.button 
+                onClick={() => setCartOpen(true)} 
+                animate={cartAnim ? { scale: [1, 1.25, 1], rotate: [0, -8, 8, 0] } : {}}
+                className="relative p-2 text-slate-600 hover:text-[#CC0000] transition-colors rounded-full hover:bg-slate-100"
+              >
+                <ShoppingCart size={20} />
+                {cartCount > 0 && (
+                  <span className="absolute top-0 right-0 w-4 h-4 bg-[#CC0000] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+                    {cartCount}
+                  </span>
+                )}
+              </motion.button>
+            </div>
+
+          </motion.div>
+        </div>
+      </motion.header>
 
       {/* Mobile menu */}
       <AnimatePresence>
@@ -296,7 +211,7 @@ export default function App() {
             <div className="px-4 py-3 flex flex-col gap-1 max-h-[65vh] overflow-y-auto">
               <div className="relative mb-3">
                 <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-faint" />
-                <input type="text" placeholder="Search..." className="input-field !pl-10" />
+                <input type="text" placeholder="Search..." className="input-field pl-10!" />
               </div>
               {NAV_LINKS.map(link => (
                 <a key={link} href="#" onClick={() => setMobileMenu(false)}
@@ -309,127 +224,109 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <main className="flex-grow">
+      <main className="grow">
 
         {/* HERO */}
-        <section ref={heroRef} className="relative bg-white border-b border-divider overflow-hidden">
-          {/* Subtle premium mesh background */}
+        <section className="relative bg-white border-b border-divider overflow-hidden pt-8 pb-16 lg:pt-16 lg:pb-24">
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-red-100/30 rounded-full blur-[100px]" />
-            <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-indigo-50/50 rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2" />
-            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.3 }} />
+            <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-red-50/50 rounded-full blur-[120px]" />
+            <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-slate-50/80 rounded-full blur-[80px]" />
           </div>
           
-          <div className="relative z-10  mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[55%_45%] gap-12 lg:gap-8 items-center">
 
             {/* Left */}
-            <div>
-              <div>
-                <span ref={heroBadge} className="inline-flex items-center gap-2 bg-red-50 text-indigo-700 border border-indigo-200 text-[11px] font-bold uppercase tracking-widest px-2 py-1 rounded-full mb-6">
-                  <Zap size={11} /> Updated for 2026 Exam Session
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+              }}
+            >
+              <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}>
+                <span className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-full mb-6 border border-slate-200">
+                  <Star size={12} className="fill-amber-400 text-amber-400" /> India's Most Trusted Educational Store
                 </span>
-              </div>
+              </motion.div>
 
-              <h1 ref={heroH1}
-                className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-on-surface leading-[1.08] tracking-tight mb-5"
+              <motion.h1 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                className="font-display font-bold text-[48px] leading-[1.1] text-[#111111] tracking-tight mb-4"
               >
-                India's Most{' '}
-                <span className="text-red-600">Trusted</span>{' '}
-                <br />Educational{' '}
-                <TypeAnimation
-                  sequence={['Publisher.', 2500, 'Store.', 2500, 'Partner.', 2500]}
-                  wrapper="span" speed={55} repeat={Infinity}
-                  className="text-transparent bg-clip-text whitespace-nowrap"
-                  style={{ backgroundImage: 'linear-gradient(90deg, #DC1E1E, #F87171)' }}
-                />
-              </h1>
+                Crack NEET, JEE &amp; Olympiads<br />with <span className="text-[#CC0000]">Confidence</span>
+              </motion.h1>
 
-              <p ref={heroP} className="text-on-surface-dim text-lg mb-8 max-w-md leading-relaxed">
-                Study materials for NEET, JEE, CBSE &amp; Olympiads. 5000+ titles, 50 lakh+ students served, 40+ years of excellence.
-              </p>
+              <motion.p 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                className="text-slate-500 text-[16px] mb-8"
+              >
+                50L+ books sold · Expert authors · 40+ years of excellence
+              </motion.p>
 
-              <div ref={heroBtns} className="flex flex-wrap gap-3 mb-10">
-                <button className="btn-primary">
-                  <BookOpen size={16} /> Explore Books
+              <motion.div 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                className="flex flex-wrap gap-4 mb-12"
+              >
+                <button className="bg-[#CC0000] hover:bg-red-700 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-[0_8px_20px_rgba(204,0,0,0.25)] hover:shadow-[0_12px_24px_rgba(204,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
+                  <BookOpen size={18} /> Explore Books
                 </button>
-                <button className="btn-outline">
-                  View Magazines <ArrowRight size={15} />
+                <button className="bg-transparent border-2 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50 font-bold px-6 py-3.5 rounded-xl transition-all flex items-center gap-2">
+                  Free Magazines <ArrowRight size={18} />
                 </button>
-              </div>
+              </motion.div>
 
-              {/* Social proof */}
-              <div ref={heroProof} className="flex items-center gap-5 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="flex -space-x-2">
-                    {['A','S','R','M'].map((l, i) => (
-                      <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-400 to-indigo-600 border-2 border-white flex items-center justify-center text-white text-[11px] font-bold">
-                        {l}
-                      </div>
-                    ))}
-                  </div>
-                  <div>
-                    <div className="flex gap-0.5">
-                      {[1,2,3,4,5].map(s => <Star key={s} size={12} className="fill-amber-400 text-amber-400" />)}
+              {/* Stats Row */}
+              <motion.div 
+                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                className="flex flex-wrap gap-x-8 gap-y-4 pt-8 border-t border-slate-100"
+              >
+                {[
+                  { end: 50, suffix: 'L+', label: 'Books' },
+                  { end: 200, suffix: '+', label: 'Authors' },
+                  { end: 40, suffix: '+', label: 'Years' },
+                  { end: 5000, suffix: '+', label: 'Products' },
+                ].map((s, i) => (
+                  <div key={i} className="flex flex-col">
+                    <div className="font-display font-black text-2xl text-[#111111]">
+                      <Counter end={s.end} suffix={s.suffix} />
                     </div>
-                    <p className="text-xs text-on-surface-dim">50L+ students trust us</p>
+                    <div className="text-sm font-semibold text-slate-400 uppercase tracking-wider">{s.label}</div>
                   </div>
-                </div>
-                <div className="h-8 w-px bg-divider" />
-                <div className="flex items-center gap-2 text-on-surface-dim text-xs">
-                  <ShieldCheck size={16} className="text-green-600" />
-                  <span>ISO Certified Publisher</span>
-                </div>
-              </div>
-            </div>
+                ))}
+              </motion.div>
+            </motion.div>
 
-            {/* Right — Modern Bento Grid Showcase */}
-            <div ref={heroImgWrap} className="hidden lg:flex items-center justify-center relative w-full pt-4 md:pt-0 pb-6 md:pb-0">
+            {/* Right */}
+            <div className="hidden lg:block relative w-full h-full">
               <HeroBento />
             </div>
           </div>
         </section>
-
-
-
-        {/* STATS */}
-        <section className="bg-surface-low border-b border-divider py-4">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-            <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-              {[
-                { end: 50,   suffix: 'L+', label: 'Students Served' },
-                { end: 200,  suffix: '+',  label: 'Expert Authors' },
-                { end: 40,   suffix: '+',  label: 'Years of Legacy' },
-                { end: 5000, suffix: '+',  label: 'Books Published' },
-              ].map((s, i) => (
-                <div key={i} className="stat-item relative">
-                  {i < 3 && <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 h-10 w-px bg-divider" />}
-                  <Counter {...s} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* TRUST BAR */}
-        <section className="bg-white border-b border-divider py-8">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-            <div ref={trustRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <section className="bg-[#F9F9F9] py-10 border-b border-divider">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
               {[
-                { icon: Truck,       title: 'Free Delivery',   desc: 'On orders above ₹499',     color: 'text-blue-600 bg-blue-50 border-blue-100' },
-                { icon: ShieldCheck, title: 'Secure Payments', desc: 'UPI, Cards, Net Banking',  color: 'text-green-600 bg-green-50 border-green-100' },
-                { icon: RefreshCcw,  title: 'Easy Returns',    desc: '15-day hassle-free policy', color: 'text-amber-600 bg-amber-50 border-amber-100' },
-                { icon: Headphones,  title: '24/7 Support',    desc: 'Always here to help you',  color: 'text-purple-600 bg-purple-50 border-purple-100' },
+                { icon: Truck,       title: 'Free Delivery',   desc: 'On orders above ₹1,100' },
+                { icon: ShieldCheck, title: 'Secure Payment',  desc: '100% secure checkout' },
+                { icon: RefreshCcw,  title: 'Easy Returns',    desc: '15-day hassle-free' },
+                { icon: Headphones,  title: '24/7 Support',    desc: 'Dedicated helpdesk' },
+                { icon: Award,       title: '40+ Years',       desc: 'Of educational excellence' },
               ].map((t, i) => (
-                <motion.div key={i} whileHover={{ y: -3 }}
-                  className="trust-card flex items-center gap-4 p-4 rounded-2xl border border-divider hover:border-indigo-200 hover:shadow-md transition-all"
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="flex flex-col items-center text-center p-2"
                 >
-                  <div className={`w-11 h-11 rounded-xl border flex items-center justify-center flex-shrink-0 ${t.color}`}>
-                    <t.icon size={20} />
+                  <div className="w-12 h-12 rounded-full bg-red-100/50 flex items-center justify-center mb-3">
+                    <t.icon size={24} className="text-[#CC0000]" />
                   </div>
-                  <div>
-                    <div className="font-semibold text-sm text-on-surface">{t.title}</div>
-                    <div className="text-xs text-on-surface-dim mt-0.5">{t.desc}</div>
-                  </div>
+                  <div className="font-bold text-sm text-[#111111] mb-1">{t.title}</div>
+                  <div className="text-xs text-slate-500">{t.desc}</div>
                 </motion.div>
               ))}
             </div>
@@ -437,45 +334,48 @@ export default function App() {
         </section>
 
         {/* CATEGORIES + PRODUCT GRID */}
-        <section className="py-14 bg-surface-low">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-            <SectionHead
-              eyebrow="Browse Collection"
-              title="Explore by Category"
-              sub="Find the perfect study material for every exam and class."
-              cta={
-                <a href="#" className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-red-600 hover:text-red-700 border border-red-600 rounded-full px-3 py-1 hover:bg-red-600 hover:text-white transition-all">
-                  All Products <ArrowRight size={15} />
-                </a>
-              }
-            />
+        <section className="py-16 bg-white">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <h2 className="font-display font-bold text-3xl text-[#111111] tracking-tight">Explore by Category</h2>
+              </div>
+              <a href="#" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#CC0000] hover:text-red-700 transition-colors">
+                View All <ArrowRight size={16} />
+              </a>
+            </div>
 
-            <div className="flex flex-wrap gap-2.5 mb-8">
-              {CATEGORIES.map(cat => (
-                <button key={cat.label}
-                  onClick={() => setActiveCat(cat.label)}
-                  className={`cat-chip ${activeCat === cat.label ? 'active' : ''}`}
+            <div className="flex flex-wrap gap-2.5 mb-10">
+              {['All', 'NEET', 'JEE', 'Olympiad', 'CBSE', 'NCERT', 'Class 6–10', 'Class 11–12'].map(cat => (
+                <button 
+                  key={cat}
+                  onClick={() => setActiveCat(cat)}
+                  className={`px-5 py-2.5 rounded-full text-sm font-bold transition-colors ${activeCat === cat ? 'bg-[#CC0000] text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
                 >
-                  <cat.icon size={14} />
-                  {cat.label}
+                  {cat}
                 </button>
               ))}
             </div>
 
             <AnimatePresence mode="wait">
               <motion.div key={activeCat + searchVal}
-                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-3 md:gap-4"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
+                }}
+                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
               >
-                {filteredBooks.length > 0 ? filteredBooks.slice(0, 14).map((book, i) => (
-                  <motion.div key={book.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}>
+                {filteredBooks.length > 0 ? filteredBooks.slice(0, 12).map((book, i) => (
+                  <motion.div key={book.id} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
                     <BookCard book={book} onAdd={handleAdd} />
                   </motion.div>
                 )) : (
                   <div className="col-span-full py-20 text-center">
                     <BookMarked size={48} className="text-slate-300 mx-auto mb-4" />
-                    <p className="text-on-surface-dim text-sm">No books found. Try a different category.</p>
+                    <p className="text-slate-500 text-sm font-medium">No books found. Try a different category.</p>
                   </div>
                 )}
               </motion.div>
@@ -483,341 +383,556 @@ export default function App() {
           </div>
         </section>
 
-        {/* PROMO BENTO */}
-        <section className="py-16 bg-white overflow-hidden">
+        {/* SHOP BY EXAM */}
+        <section className="py-16 bg-[#F9F9F9] border-t border-slate-100">
           <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Reveal className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-              
-              {/* BIG DEAL card */}
-              <motion.div whileHover={{ scale: 1.015 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className="md:col-span-2 relative overflow-hidden rounded-[2.5rem] cursor-pointer group"
-                style={{ background: 'linear-gradient(135deg, #fff5f5 0%, #fee2e2 60%, #fecaca 100%)' }}
-              >
-                {/* Animated blobs */}
-                <div className="absolute -right-12 -top-12 w-56 h-56 bg-red-300/40 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
-                <div className="absolute -left-6 -bottom-6 w-40 h-40 bg-orange-200/50 rounded-full blur-2xl pointer-events-none" />
-                
-                <div className="relative z-10 p-8 md:p-10 lg:p-12 flex flex-col h-full justify-between">
-                  <div className="flex items-start justify-between mb-6">
-                    <div>
-                      <span className="inline-flex items-center gap-1.5 bg-red-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 shadow-sm">
-                        <Flame size={12} /> Limited Time Sale
-                      </span>
-                      <div className="font-display font-black text-slate-900 leading-tight">
-                        <div className="text-4xl md:text-5xl lg:text-6xl tracking-tight">Flat <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-rose-500">50%</span> OFF</div>
-                        <div className="text-xl lg:text-2xl text-slate-700 font-bold mt-2">on All Master Workbooks</div>
-                      </div>
-                    </div>
-                    <div className="relative flex-shrink-0 hidden sm:block">
-                      <div className="w-24 h-24 bg-gradient-to-br from-red-500 to-rose-600 rounded-[1.5rem] flex flex-col items-center justify-center text-white shadow-[0_12px_32px_rgba(224,32,32,0.4)] rotate-6 group-hover:rotate-0 group-hover:scale-110 transition-all duration-500">
-                        <span className="font-display font-black text-3xl leading-none">50%</span>
-                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-90 mt-0.5">Sale</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-slate-600 text-sm leading-relaxed mb-8 max-w-sm font-medium">
-                      Practice makes perfect. Grab comprehensive workbooks at unbeatable prices — valid this week only!
-                    </p>
-                    <button className="bg-slate-900 text-white font-bold text-sm px-6 py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-red-600 hover:shadow-lg transition-all hover:scale-105 active:scale-95 w-max">
-                      Shop the Sale <ArrowRight size={16} />
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Right column small cards */}
-              <div className="flex flex-col gap-5 lg:gap-6">
-                {/* NEET card */}
-                <motion.div whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  className="flex-1 relative overflow-hidden rounded-[2.5rem] cursor-pointer group p-6 lg:p-8 flex flex-col justify-center"
-                  style={{ background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)' }}
+            <div className="mb-10 text-center">
+              <h2 className="font-display font-bold text-3xl text-[#111111] tracking-tight mb-2">Shop by Exam</h2>
+              <p className="text-slate-500">Find exactly what you need for your target exam</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              {[
+                { name: 'NEET', color: 'from-blue-500 to-blue-700', icon: Microscope },
+                { name: 'JEE', color: 'from-indigo-500 to-indigo-700', icon: Zap },
+                { name: 'Olympiad', color: 'from-amber-500 to-amber-600', icon: Award },
+                { name: 'CBSE', color: 'from-emerald-500 to-emerald-700', icon: GraduationCap }
+              ].map((exam, i) => (
+                <motion.div
+                  key={exam.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: i * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="relative overflow-hidden rounded-2xl shadow-md cursor-pointer group"
                 >
-                  <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl group-hover:bg-blue-400/30 transition-colors pointer-events-none" />
-                  <Microscope size={56} className="text-blue-500/15 absolute right-6 bottom-6 transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500" />
-                  
-                  <div className="relative z-10">
-                    <span className="text-[10px] font-extrabold uppercase text-blue-600 tracking-widest bg-blue-100/80 px-2.5 py-1 rounded-md">NEET 2026</span>
-                    <h3 className="font-display text-xl font-bold text-slate-800 mt-4 mb-2 leading-tight group-hover:text-blue-700 transition-colors tracking-tight">
-                      Complete PCB<br/>Combo Packs
-                    </h3>
-                    <p className="text-slate-500 text-xs mb-5 font-medium">Physics + Chemistry + Biology. Save 25% today!</p>
-                    <button className="inline-flex items-center gap-1.5 text-blue-600 font-bold text-xs hover:gap-2.5 transition-all">
-                      View Combos <ArrowRight size={13} />
-                    </button>
+                  <div className={`absolute inset-0 bg-linear-to-br ${exam.color} opacity-90 group-hover:opacity-100 transition-opacity`} />
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" />
+                  <div className="relative p-6 flex flex-col items-center text-center">
+                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4 group-hover:bg-white/30 transition-colors">
+                      <exam.icon size={32} className="text-white" />
+                    </div>
+                    <h3 className="font-bold text-xl text-white mb-1">{exam.name}</h3>
+                    <span className="text-white/80 text-xs font-semibold uppercase tracking-wider">Explore</span>
                   </div>
                 </motion.div>
-
-                {/* Olympiad card */}
-                <motion.div whileHover={{ scale: 1.02 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  className="flex-1 relative overflow-hidden rounded-[2.5rem] cursor-pointer group p-6 lg:p-8 flex flex-col justify-center"
-                  style={{ background: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)' }}
-                >
-                  <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl group-hover:bg-amber-400/30 transition-colors pointer-events-none" />
-                  <Award size={56} className="text-amber-500/15 absolute right-6 bottom-6 transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500" />
-                  
-                  <div className="relative z-10">
-                    <span className="text-[10px] font-extrabold uppercase text-amber-700 tracking-widest bg-amber-200/50 px-2.5 py-1 rounded-md">Olympiads</span>
-                    <h3 className="font-display text-xl font-bold text-slate-800 mt-4 mb-2 leading-tight group-hover:text-amber-700 transition-colors tracking-tight">
-                      IMO / NSO / IEO<br/>Prep Kits
-                    </h3>
-                    <p className="text-slate-500 text-xs mb-5 font-medium">Class 1–12. Start your Olympiad journey.</p>
-                    <button className="inline-flex items-center gap-1.5 text-amber-600 font-bold text-xs hover:gap-2.5 transition-all">
-                      Explore Kits <ArrowRight size={13} />
-                    </button>
-                  </div>
-                </motion.div>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* NEW RELEASES */}
-        <section className="py-16 bg-surface-low border-y border-divider">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-            <SectionHead eyebrow="Just Arrived" title="New Releases" sub="Latest editions updated for the 2026 examination syllabus." />
-            <ProductSlider items={ALL_BOOKS.slice(0, 8)} onAdd={handleAdd} />
-          </div>
-        </section>
-
-        {/* BESTSELLERS */}
-        <section className="py-16 bg-white">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-            <SectionHead
-              eyebrow="Top Charts"
-              title="Bestselling Books"
-              sub="Most-loved study materials by students across India."
-              cta={
-                <a href="#" className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-red-600 hover:text-indigo-700">
-                  View All <ArrowRight size={15} />
-                </a>
-              }
-            />
-            <ProductSlider items={[...ALL_BOOKS].sort((a, b) => b.reviews - a.reviews)} onAdd={handleAdd} />
-          </div>
-        </section>
-
-        {/* MAGAZINES */}
-        <section className="py-16 bg-surface-low border-t border-divider">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-            <SectionHead
-              eyebrow="Monthly"
-              title="MTG Magazines"
-              sub="Stay ahead with exam updates, practice problems, and expert tips every month."
-              cta={
-                <button className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-red-600 hover:text-indigo-700">
-                  Subscribe Now <ArrowRight size={15} />
-                </button>
-              }
-            />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              {MAGAZINES.map((mag, i) => (
-                <div key={mag.id}>
-                  <Reveal delay={i * 0.06}>
-                    <motion.div whileHover={{ y: -5 }} className="card cursor-pointer group flex flex-col h-full overflow-hidden">
-                      <div className="flex-1 min-h-[220px] relative overflow-hidden" style={{ background: mag.color }}>
-                        <div className="absolute inset-0 flex flex-col items-center justify-center p-4 z-10 w-full h-full text-center">
-                          <div className="font-display font-bold text-xl md:text-2xl leading-tight" style={{ color: mag.accent }}>{mag.name}</div>
-                          <div className="text-xs md:text-sm mt-2 font-semibold flex-1" style={{ color: mag.accent, opacity: 0.85 }}>{mag.desc}</div>
-                        </div>
-                      </div>
-                      <div className="p-4 flex items-center justify-between mt-auto flex-shrink-0">
-                        <div>
-                          <div className="font-bold text-base text-on-surface">{formatPrice(mag.price)}</div>
-                          <div className="text-[10px] text-on-surface-faint">per issue</div>
-                        </div>
-                        <button
-                          className="btn-primary !px-3 !py-2 !text-xs !shadow-none"
-                          onClick={() => toast.custom(t => <CartToast title={mag.name} t={t} />, { duration: 3000 })}
-                        >
-                          <ShoppingCart size={13} /> Add
-                        </button>
-                      </div>
-                    </motion.div>
-                  </Reveal>
-                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* FOUNDATION COURSES BANNER */}
-        <Reveal>
-          <section className="py-16 bg-white">
-            <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-              <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl overflow-hidden relative">
-                <div className="absolute inset-0 opacity-10"
-                  style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #DC1E1E 0%, transparent 50%), radial-gradient(circle at 80% 50%, #2563EB 0%, transparent 50%)' }} />
-                <div className="absolute right-0 top-0 w-96 h-full opacity-5">
-                  <BookOpen size={400} strokeWidth={0.5} />
+        {/* PROMO BANNERS */}
+        <section className="py-16 bg-surface-low overflow-hidden">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-6">
+              
+              {/* Banner 1: Red */}
+              <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                className="relative overflow-hidden rounded-4xl bg-[#CC0000] p-8 md:p-12 flex flex-col justify-center min-h-[280px] group cursor-pointer"
+              >
+                <div className="absolute -right-8 -top-12 text-[180px] font-black text-white/10 leading-none select-none pointer-events-none group-hover:scale-110 transition-transform duration-700">
+                  50%
                 </div>
-                <div className="grid md:grid-cols-2 items-center gap-8 p-8 md:p-14 relative z-10">
-                  <div>
-                    <span className="inline-flex items-center gap-2 bg-white/10 text-white/80 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full mb-5">
-                      <GraduationCap size={12} /> Foundation Courses
-                    </span>
-                    <h3 className="font-display font-bold text-3xl md:text-4xl text-white leading-tight mb-4">
-                      Build a Strong Foundation<br/>
-                      <span className="text-indigo-400">Class 6 to Class 10</span>
+                <div className="relative z-10">
+                  <h3 className="font-display font-black text-3xl md:text-4xl text-white leading-tight mb-4 max-w-sm">
+                    Flat 50% OFF on All Master Workbooks
+                  </h3>
+                  <button className="bg-white text-[#CC0000] font-bold px-6 py-3 rounded-xl hover:bg-slate-50 hover:shadow-lg transition-all flex items-center gap-2 active:scale-95 w-max">
+                    Shop the Sale <ArrowRight size={16} />
+                  </button>
+                </div>
+              </motion.div>
+
+              {/* Banner 2: Dark */}
+              <motion.div 
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                className="relative overflow-hidden rounded-4xl bg-[#1a1a2e] p-8 md:p-12 flex flex-col justify-center min-h-[280px] group cursor-pointer"
+              >
+                <div className="absolute right-0 bottom-0 w-64 h-64 bg-indigo-500/20 rounded-full blur-[80px] pointer-events-none" />
+                <Award size={120} className="absolute -right-6 -bottom-6 text-white/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none" />
+                
+                <div className="relative z-10">
+                  <span className="inline-block bg-indigo-500/20 text-indigo-300 text-xs font-bold px-3 py-1 rounded-full mb-4">
+                    Olympiads 2026
+                  </span>
+                  <h3 className="font-display font-black text-3xl md:text-4xl text-white leading-tight mb-6 max-w-sm">
+                    IMO / NSO / IEO Prep Kits Now Live
+                  </h3>
+                  <button className="bg-transparent border-2 border-white text-white font-bold px-6 py-3 rounded-xl hover:bg-white/10 transition-all flex items-center gap-2 active:scale-95 w-max">
+                    Explore Combos <ArrowRight size={16} />
+                  </button>
+                </div>
+              </motion.div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* BESTSELLING BOOKS */}
+        <section className="py-16 bg-white border-y border-divider">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <h2 className="font-display font-bold text-3xl text-[#111111] tracking-tight">Bestselling Books</h2>
+              </div>
+              <a href="#" className="inline-flex items-center gap-1.5 text-sm font-bold text-[#CC0000] hover:text-red-700 transition-colors">
+                See All <ArrowRight size={16} />
+              </a>
+            </div>
+
+            <div className="flex overflow-x-auto pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 snap-x snap-mandatory scrollbar-hide">
+              {ALL_BOOKS.slice(0, 6).map((book, i) => (
+                <motion.div 
+                  key={book.id} 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  className="min-w-[240px] sm:min-w-0 snap-center"
+                >
+                  <BookCard book={{...book, badge: 'Bestseller'}} onAdd={handleAdd} />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* MTG MAGAZINES */}
+        <section className="py-16 bg-[#F9F9F9]">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 text-center">
+              <h2 className="font-display font-bold text-3xl text-[#111111] tracking-tight mb-2">MTG Magazines — Stay Ahead Every Month</h2>
+              <p className="text-slate-500">Subscribe to India's leading monthly magazines for competitive exams.</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {MAGAZINES.map((mag, i) => (
+                <motion.div 
+                  key={mag.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ y: -8 }}
+                  className="bg-white rounded-4xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
+                >
+                  <div className="h-40 flex items-center justify-center p-6 relative overflow-hidden" style={{ backgroundColor: mag.color }}>
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-10 bg-black transition-opacity" />
+                    <h3 className="font-display font-black text-2xl text-center leading-tight relative z-10" style={{ color: mag.accent }}>
+                      {mag.name.replace(' Subscription', '')}
                     </h3>
-                    <p className="text-white/60 mb-6 leading-relaxed">
-                      MTG Foundation Course books for Physics, Chemistry, Mathematics &amp; Biology — designed to build strong concepts from the ground up for future JEE &amp; NEET aspirants.
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      <button className="btn-primary !bg-red-600 hover:!bg-indigo-700">
-                        Explore Foundation <ArrowRight size={15} />
-                      </button>
-                      <button className="btn-outline !border-white/30 !text-white hover:!bg-white/10">
-                        Download Catalogue
+                  </div>
+                  
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">Monthly</span>
+                      <span className="bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">12 Issues/Year</span>
+                    </div>
+                    
+                    <div className="mt-auto flex flex-col gap-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-display font-black text-2xl text-[#111111]">₹500<span className="text-sm text-slate-400 font-medium">/yr</span></div>
+                          <div className="text-xs font-semibold text-slate-500 mt-0.5">₹50/issue</div>
+                        </div>
+                      </div>
+                      <button 
+                        onClick={() => toast.custom(t => <CartToast title={mag.name} t={t} />, { duration: 3000 })}
+                        className="w-full bg-[#111111] text-white font-bold py-3 rounded-xl hover:bg-[#CC0000] transition-colors flex items-center justify-center gap-2"
+                      >
+                        Subscribe
                       </button>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    {(['Physics', 'Chemistry', 'Mathematics', 'Biology'] as const).map((sub, i) => {
-                      const Icons = [Zap, Microscope, Calculator, BookOpen];
-                      const Icon = Icons[i];
-                      return (
-                        <div key={sub} className="bg-white/10 border border-white/10 rounded-2xl p-4 hover:bg-white/15 transition-colors cursor-pointer">
-                          <div className="w-8 h-8 rounded-xl bg-red-600/80 flex items-center justify-center mb-2">
-                            <Icon size={16} className="text-white" />
-                          </div>
-                          <div className="font-semibold text-white text-sm">{sub}</div>
-                          <div className="text-white/40 text-xs mt-0.5">Class 6–10</div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
+                </motion.div>
+              ))}
             </div>
-          </section>
-        </Reveal>
+          </div>
+        </section>
 
-        {/* ONLINE CLASSES */}
-        <Reveal>
-          <section className="py-12 bg-surface-low border-y border-divider">
-            <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-divider rounded-2xl p-6 md:p-8">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-red-50 rounded-2xl border border-indigo-100 flex items-center justify-center flex-shrink-0">
-                    <TrendingUp size={28} className="text-red-600" />
+        {/* SECTION 9: WHY CHOOSE MTG */}
+        <section className="py-16 bg-white border-y border-divider">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 text-center">
+              <h2 className="font-display font-bold text-3xl text-[#111111] tracking-tight mb-2">Why Choose MTG?</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { icon: User, title: 'Expert Authors', desc: 'Books by IITians, doctors & top educators' },
+                { icon: BookOpen, title: 'NCERT-Aligned', desc: 'Perfectly aligned with latest NCERT syllabus' },
+                { icon: RefreshCcw, title: 'PYQ Coverage', desc: '20+ years of previous year questions included' },
+                { icon: ShieldCheck, title: 'Digital Support', desc: 'Free ebook with every physical book' },
+                { icon: Award, title: 'Olympiad Leader', desc: 'India\'s #1 Olympiad book publisher since 1982' },
+                { icon: Globe, title: 'All India Reach', desc: 'Delivered to 19,000+ pin codes across India' }
+              ].map((feature, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="bg-[#F9F9F9] p-6 rounded-2xl flex items-start gap-4 border border-slate-100"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center shrink-0">
+                    <feature.icon size={24} className="text-[#CC0000]" />
                   </div>
                   <div>
-                    <h4 className="font-display font-bold text-xl text-on-surface">Olympiad Online Classes</h4>
-                    <p className="text-on-surface-dim text-sm mt-1">Live &amp; Recorded classes by expert faculty for IMO, NSO, IEO &amp; ICSO.</p>
+                    <h4 className="font-bold text-slate-800 text-lg mb-1">{feature.title}</h4>
+                    <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
                   </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 10: TESTIMONIALS */}
+        <section className="py-16 bg-[#F9F9F9]">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 text-center">
+              <h2 className="font-display font-bold text-3xl text-[#111111] tracking-tight mb-2">Hear from Our Achievers</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { name: 'Arjun Mehta', exam: 'JEE AIR 89 · 2024', quote: 'The Chapterwise Solutions gave me exact insights into the NTA pattern. Practicing 35 years of PYQs built my confidence immensely. A must-buy for aspirants.', initials: 'AM', color: 'bg-blue-100 text-blue-700' },
+                { name: 'Sneha Patel', exam: 'NEET AIR 142 · 2024', quote: 'Objective NCERT at your Fingertips was my daily companion. The assertion-reason questions closely matched the actual NEET paper. Highly recommended!', initials: 'SP', color: 'bg-emerald-100 text-emerald-700' },
+                { name: 'Rohan Kumar', exam: 'NSO Gold Medal · 2023', quote: 'I started preparing with MTG Olympiad workbooks in Class 6. The conceptual clarity and question variety are unmatched and built my foundation.', initials: 'RK', color: 'bg-amber-100 text-amber-700' }
+              ].map((t, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col"
+                >
+                  <div className="flex gap-1 mb-4">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star key={star} size={16} className="fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 italic mb-6 grow">"{t.quote}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${t.color}`}>
+                      {t.initials}
+                    </div>
+                    <div>
+                      <div className="font-bold text-slate-800 text-sm">{t.name}</div>
+                      <div className="text-xs text-slate-500">{t.exam}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* APP DOWNLOAD */}
+        <section className="py-16 bg-white border-y border-slate-100">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-linear-to-r from-red-50 to-orange-50 rounded-4xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-10 overflow-hidden relative"
+            >
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white/40 rounded-full blur-[80px] pointer-events-none" />
+              
+              <div className="flex-1 relative z-10">
+                <div className="inline-flex items-center gap-2 bg-white text-[#CC0000] text-xs font-bold px-3 py-1.5 rounded-full mb-6 shadow-sm">
+                  <Smartphone size={14} /> Available on iOS & Android
                 </div>
-                <div className="flex gap-3 flex-shrink-0">
-                  <button className="btn-primary">Join Live Classes</button>
-                  <button className="btn-outline">Watch Recorded</button>
+                <h2 className="font-display font-black text-3xl md:text-4xl text-[#111111] leading-tight mb-4">
+                  Learning Now in Your Pocket
+                </h2>
+                <p className="text-slate-600 mb-8 max-w-md">
+                  Download the official MTG app for instant access to free PDFs, mock tests, daily quizzes, and exclusive app-only discounts.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <button className="bg-black hover:bg-slate-800 text-white px-6 py-3 rounded-xl transition-all flex items-center gap-3">
+                    <Play size={20} />
+                    <div className="text-left">
+                      <div className="text-[10px] text-white/70 leading-none">GET IT ON</div>
+                      <div className="text-sm font-bold leading-none mt-1">Google Play</div>
+                    </div>
+                  </button>
+                  <button className="bg-black hover:bg-slate-800 text-white px-6 py-3 rounded-xl transition-all flex items-center gap-3">
+                    <Download size={20} />
+                    <div className="text-left">
+                      <div className="text-[10px] text-white/70 leading-none">Download on the</div>
+                      <div className="text-sm font-bold leading-none mt-1">App Store</div>
+                    </div>
+                  </button>
                 </div>
               </div>
-            </div>
-          </section>
-        </Reveal>
+              
+              <div className="w-full md:w-auto relative z-10 flex justify-center md:justify-end">
+                <div className="w-[280px] h-[340px] bg-slate-800 rounded-t-4xl border-8 border-black border-b-0 overflow-hidden shadow-2xl relative">
+                  <div className="absolute top-0 inset-x-0 h-6 bg-black flex justify-center rounded-b-xl px-4 z-20">
+                     <div className="w-1/3 h-4 bg-black rounded-b-xl" />
+                  </div>
+                  <div className="w-full h-full bg-[#CC0000] flex flex-col items-center justify-center p-6 text-center text-white relative">
+                    <div className="absolute inset-0 bg-black/10" />
+                    <h3 className="font-black text-2xl mb-2 relative z-10">MTG App</h3>
+                    <p className="text-xs text-white/80 relative z-10">Your study companion</p>
+                    <div className="mt-6 w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg relative z-10">
+                      <span className="font-black text-xl text-[#CC0000]">M</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-        {/* TESTIMONIALS */}
-        <section className="py-16 bg-white border-b border-divider">
-          <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-            <SectionHead
-              eyebrow="Student Success"
-              title="Hear from Achievers"
-              sub="Join thousands of top scorers who trust MTG for their preparation."
-            />
-            <Reveal>
-              <TestimonialSlider items={TESTIMONIALS} />
-            </Reveal>
+        {/* BLOG SECTION */}
+        <section className="py-20 bg-surface-low border-y border-slate-100">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+              <div>
+                <div className="inline-flex items-center gap-1.5 text-[#CC0000] text-sm font-bold tracking-widest uppercase mb-3">
+                  <span className="w-8 h-0.5 bg-[#CC0000] rounded-full" /> Preparation Insights
+                </div>
+                <h2 className="font-display font-black text-3xl md:text-4xl text-[#111111] tracking-tight">
+                  Latest from the Blog
+                </h2>
+              </div>
+              <button className="hidden md:flex bg-transparent border-2 border-slate-200 text-slate-700 hover:border-[#CC0000] hover:text-[#CC0000] font-bold px-6 py-2.5 rounded-xl transition-colors items-center gap-2">
+                View All Articles <ArrowRight size={16} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { 
+                  title: "How to Score 360 in NEET Biology: A Complete Strategy", 
+                  category: "NEET Prep", 
+                  date: "May 12, 2026", 
+                  read: "5 min read",
+                  img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80",
+                  excerpt: "Mastering NCERT is key. Here is a step-by-step breakdown of how top rankers study Biology to maximize their score."
+                },
+                { 
+                  title: "JEE Advanced 2026: Most Important Topics to Cover", 
+                  category: "JEE Advanced", 
+                  date: "May 10, 2026", 
+                  read: "8 min read",
+                  img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80",
+                  excerpt: "With the changing pattern, focusing on high-weightage topics is crucial. Let's analyze the past 5 years' papers."
+                },
+                { 
+                  title: "Why Olympiads are Crucial for Building a Strong Foundation", 
+                  category: "Foundation", 
+                  date: "May 08, 2026", 
+                  read: "6 min read",
+                  img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80",
+                  excerpt: "Starting early gives students an edge in competitive exams later. Here's why you should register for NSO and IMO."
+                }
+              ].map((blog, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: i * 0.15, duration: 0.6 }}
+                  className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgba(204,0,0,0.08)] transition-all duration-300"
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
+                    <img 
+                      src={blog.img} 
+                      alt={blog.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
+                    />
+                    <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur text-[#CC0000] text-xs font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-wider">
+                      {blog.category}
+                    </div>
+                  </div>
+                  <div className="p-6 md:p-8 flex flex-col grow">
+                    <div className="flex items-center gap-4 text-xs font-semibold text-slate-400 mb-4">
+                      <span className="flex items-center gap-1.5"><Calendar size={14} /> {blog.date}</span>
+                      <span className="flex items-center gap-1.5"><Clock size={14} /> {blog.read}</span>
+                    </div>
+                    <h3 className="font-display font-bold text-xl text-slate-900 leading-snug mb-3 group-hover:text-[#CC0000] transition-colors">
+                      {blog.title}
+                    </h3>
+                    <p className="text-slate-500 text-sm leading-relaxed mb-6 grow">
+                      {blog.excerpt}
+                    </p>
+                    <a href="#" className="inline-flex items-center gap-2 text-[#CC0000] font-bold text-sm hover:gap-3 transition-all mt-auto w-max">
+                      Read Full Article <ArrowRight size={16} />
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            <button className="w-full mt-8 md:hidden bg-transparent border-2 border-slate-200 text-slate-700 font-bold px-6 py-3.5 rounded-xl transition-colors flex justify-center items-center gap-2">
+              View All Articles <ArrowRight size={16} />
+            </button>
+          </div>
+        </section>
+
+        {/* SECTION 11: ONLINE CLASSES BANNER */}
+        <section className="py-20 bg-white">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="bg-[#0f0f1a] rounded-4xl overflow-hidden relative"
+            >
+              <div className="absolute inset-0 border-4 border-[#CC0000]/20 rounded-4xl m-2 pointer-events-none" />
+              <div className="grid lg:grid-cols-2 gap-8 items-center p-8 md:p-12 lg:p-16 relative z-10">
+                <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                  <h3 className="font-display font-black text-3xl md:text-4xl text-white leading-tight mb-4">
+                    Build a Strong Foundation<br />
+                    <span className="text-[#CC0000]">Class 6 to Class 10</span>
+                  </h3>
+                  <p className="text-white/70 mb-8 max-w-md">
+                    MTG Foundation classes for Physics, Chemistry, Maths &amp; Biology. Start your journey towards excellence today.
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <button className="bg-[#CC0000] hover:bg-red-700 text-white font-bold px-6 py-3 rounded-xl transition-colors">
+                      Explore Foundation Classes
+                    </button>
+                    <button className="bg-transparent border border-white/30 text-white font-bold px-6 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                      Download Catalogue
+                    </button>
+                  </div>
+                </motion.div>
+                
+                <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { name: 'Physics', icon: Zap },
+                      { name: 'Chemistry', icon: Microscope },
+                      { name: 'Maths', icon: Calculator },
+                      { name: 'Biology', icon: BookOpen }
+                    ].map((sub, i) => (
+                      <div key={i} className="bg-white/5 border border-white/10 p-5 rounded-2xl flex flex-col items-center justify-center gap-3 hover:bg-white/10 transition-colors">
+                        <div className="w-12 h-12 rounded-full bg-[#CC0000]/20 flex items-center justify-center">
+                          <sub.icon size={24} className="text-[#CC0000]" />
+                        </div>
+                        <span className="text-white font-semibold text-sm">{sub.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* SECTION 12: NEWSLETTER CTA */}
+        <section className="py-16 bg-[#fff5f5]">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="max-w-2xl mx-auto text-center"
+            >
+              <h2 className="font-display font-black text-3xl text-[#111111] mb-3">Get Free Study Material Every Week</h2>
+              <p className="text-slate-600 mb-8">Join 5L+ students getting free PDFs, sample papers &amp; exam tips</p>
+              
+              <form onSubmit={handleNL} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                <input 
+                  type="email" 
+                  required 
+                  placeholder="Enter your email address" 
+                  className="flex-1 bg-white border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:border-[#CC0000] focus:ring-1 focus:ring-[#CC0000]" 
+                />
+                <button 
+                  disabled={nlStatus !== 'idle'} 
+                  className={`bg-[#111111] text-white font-bold px-6 py-3 rounded-xl transition-colors whitespace-nowrap min-w-[120px] flex items-center justify-center ${nlStatus === 'success' ? 'bg-emerald-600!' : 'hover:bg-slate-800'}`}
+                >
+                  {nlStatus === 'idle'    && 'Subscribe'}
+                  {nlStatus === 'loading' && <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin-slow" />}
+                  {nlStatus === 'success' && <><SuccessTick /> Done!</>}
+                </button>
+              </form>
+              <p className="text-xs text-slate-400 mt-4">No spam. Unsubscribe anytime.</p>
+            </motion.div>
           </div>
         </section>
 
       </main>
 
-      {/* FOOTER */}
-      <footer className="bg-slate-900 text-white pt-16 pb-8">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-12 xl:px-4">
-
-          {/* Top: brand + newsletter */}
-          <Reveal>
-            <div className="grid md:grid-cols-2 gap-12 mb-14 pb-14 border-b border-white/10">
-              <div>
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center">
-                    <span className="text-white font-display font-bold text-xl">M</span>
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-xl text-white">MTG Learning Media</div>
-                    <div className="text-xs text-white/40">Publisher since 1982 · mtg.in</div>
-                  </div>
-                </div>
-                <p className="text-white/50 text-sm leading-relaxed max-w-sm mb-6">
-                  India's pioneering educational publisher dedicated to quality, authentic, and error-free study materials for NEET, JEE, Olympiads, and CBSE boards.
-                </p>
-                <div className="flex gap-3">
-                  {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
-                    <a key={i} href="#" className="w-9 h-9 bg-white/10 hover:bg-red-600 rounded-xl flex items-center justify-center transition-colors">
-                      <Icon size={16} />
-                    </a>
-                  ))}
-                </div>
+      {/* SECTION 13: FOOTER */}
+      <footer className="bg-[#111111] text-white pt-16 pb-8 border-t-4 border-[#CC0000]">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            
+            {/* Col 1 */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="font-display font-black text-3xl text-[#CC0000] tracking-tight">MTG</span>
+                <span className="text-xs font-semibold text-white/50 uppercase tracking-widest mt-2">Learning Media</span>
               </div>
-              <div>
-                <h4 className="font-semibold text-white mb-2">Stay Updated</h4>
-                <p className="text-white/50 text-sm mb-4">Subscribe for new releases, exam tips &amp; exclusive offers.</p>
-                <form onSubmit={handleNL} className="flex gap-2">
-                  <input type="email" required placeholder="Enter your email" className="input-field !bg-white/10 !border-white/20 !text-white placeholder:!text-white/30 focus:!border-indigo-500" />
-                  <motion.button disabled={nlStatus !== 'idle'} whileTap={{ scale: 0.96 }}
-                    className={`btn-primary !whitespace-nowrap flex-shrink-0 !shadow-none ${nlStatus === 'success' ? '!bg-green-500' : ''}`}
-                  >
-                    {nlStatus === 'idle'    && 'Subscribe'}
-                    {nlStatus === 'loading' && <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin-slow" />}
-                    {nlStatus === 'success' && <><SuccessTick /> Done!</>}
-                  </motion.button>
-                </form>
-                <div className="flex items-center gap-4 mt-4 text-white/40 text-xs">
-                  <a href="tel:01244951200" className="flex items-center gap-1.5 hover:text-white transition-colors">
-                    <Phone size={12} /> 0124-4951200
+              <p className="text-white/60 text-sm leading-relaxed mb-6">
+                India's most trusted educational book publisher for NEET, JEE, Olympiad, CBSE, and school books.
+              </p>
+              <div className="flex gap-3">
+                {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
+                  <a key={i} href="#" className="w-10 h-10 bg-white/5 hover:bg-[#CC0000] rounded-full flex items-center justify-center transition-colors">
+                    <Icon size={18} />
                   </a>
-                  <a href="mailto:helpdesk@mtg.in" className="flex items-center gap-1.5 hover:text-white transition-colors">
-                    <Mail size={12} /> helpdesk@mtg.in
-                  </a>
-                </div>
+                ))}
               </div>
             </div>
-          </Reveal>
 
-          {/* Link columns */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-            {[
-              { title: 'Explore',   links: ['NEET Books', 'JEE Books', 'Olympiad Books', 'CBSE Books', 'Foundation Courses', 'NCERT Solutions'] },
-              { title: 'Magazines', links: ['Physics For You', 'Chemistry Today', 'Mathematics Today', 'Biology Today', 'Subscribe', 'Back Issues'] },
-              { title: 'Company',   links: ['About MTG', 'Our Seminars', 'Careers (Hiring!)', 'Press & Media', 'Bulk Inquiries', 'Dealer Network'] },
-              { title: 'Policy',    links: ['Terms of Use', 'Privacy Policy', 'Return Policy', 'Shipping Policy', 'Cookie Policy'] },
-              { title: 'Help',      links: ['Track Order', 'FAQs', 'Contact Us', 'Call Us', 'Email Support', 'Download App'] },
-            ].map(col => (
-              <div key={col.title}>
-                <h4 className="font-bold text-sm text-white mb-4">{col.title}</h4>
-                <ul className="space-y-2.5">
-                  {col.links.map(link => (
-                    <li key={link}>
-                      <a href="#" className="text-sm text-white/40 hover:text-indigo-400 transition-colors">{link}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Col 2 */}
+            <div>
+              <h4 className="font-bold text-white mb-4">Explore</h4>
+              <ul className="space-y-2">
+                {['NEET', 'JEE', 'Olympiad', 'CBSE', 'Magazines', 'Online Classes'].map(link => (
+                  <li key={link}><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">{link}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 3 */}
+            <div>
+              <h4 className="font-bold text-white mb-4">Company</h4>
+              <ul className="space-y-2">
+                {['About', 'Careers', 'Press', 'Blog', 'Store Locator'].map(link => (
+                  <li key={link}><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">{link}</a></li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 4 */}
+            <div>
+              <h4 className="font-bold text-white mb-4">Support</h4>
+              <ul className="space-y-2">
+                {['Help Center', 'Shipping', 'Returns', 'Bulk Orders', 'Contact'].map(link => (
+                  <li key={link}><a href="#" className="text-sm text-white/60 hover:text-white transition-colors">{link}</a></li>
+                ))}
+              </ul>
+            </div>
+
           </div>
 
-          {/* Bottom */}
-          <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-white/30">© 2026 MTG Learning Media Pvt. Ltd. All rights reserved. | CIN: U22110DL1988PTC030922</p>
-            <div className="flex items-center gap-4 text-white/30">
-              <div className="flex items-center gap-2">
-                <CreditCard size={16} />
-                <ShieldCheck size={16} />
-                <span className="text-xs">Secure Checkout</span>
-              </div>
-              <div className="w-px h-4 bg-white/10" />
-              <span className="text-xs">Made with ❤️ in India</span>
+          {/* Bottom Bar */}
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-xs text-white/40">
+              © 2026 MTG Learning Media Pvt. Ltd. | <a href="#" className="hover:text-white">Privacy Policy</a> · <a href="#" className="hover:text-white">Terms</a> · <a href="#" className="hover:text-white">Sitemap</a>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-6 bg-white/10 rounded flex items-center justify-center"><CreditCard size={14} className="text-white/40" /></div>
+              <div className="w-10 h-6 bg-white/10 rounded flex items-center justify-center"><span className="text-[10px] font-bold text-white/40">UPI</span></div>
+              <div className="w-10 h-6 bg-white/10 rounded flex items-center justify-center"><span className="text-[8px] font-bold text-white/40">Paytm</span></div>
+              <div className="w-10 h-6 bg-white/10 rounded flex items-center justify-center"><span className="text-[8px] font-bold text-white/40">PhonePe</span></div>
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 interface CounterProps {
   end: number;
   suffix?: string;
-  label: string;
+  label?: string;
 }
 
 const Counter = ({ end, suffix = '', label }: CounterProps) => {
@@ -25,10 +25,10 @@ const Counter = ({ end, suffix = '', label }: CounterProps) => {
 
   return (
     <div ref={ref} className="text-center">
-      <div className="font-display font-bold text-3xl md:text-4xl text-primary mb-1">
+      <div className="font-display font-bold text-3xl md:text-4xl text-[#CC0000] mb-1">
         {count.toLocaleString('en-IN')}{suffix}
       </div>
-      <div className="text-sm text-on-surface-dim font-medium">{label}</div>
+      {label && <div className="text-sm text-on-surface-dim font-medium">{label}</div>}
     </div>
   );
 };

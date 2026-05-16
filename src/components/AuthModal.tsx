@@ -11,7 +11,7 @@ interface AuthModalProps {
 const AuthModal = ({ open, onClose, view, setView }: AuthModalProps) => (
   <AnimatePresence>
     {open && (
-      <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-200 flex items-center justify-center p-4">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           onClick={onClose} className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
         />
@@ -22,7 +22,7 @@ const AuthModal = ({ open, onClose, view, setView }: AuthModalProps) => (
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
           className="bg-white rounded-3xl shadow-2xl w-full max-w-md relative z-10 overflow-hidden border border-white/50"
         >
-          <div className="h-2 bg-gradient-to-r from-indigo-500 to-amber-500" />
+          <div className="h-2 bg-linear-to-r from-indigo-500 to-amber-500" />
           <button onClick={onClose} className="absolute top-5 right-5 text-slate-400 hover:bg-slate-100 p-1.5 rounded-full"><X size={18}/></button>
 
           <div className="p-8">
